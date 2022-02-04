@@ -33,7 +33,7 @@ Build docker image using included Dockerfile.
 
 
 ## Installation on Kubernetes
-Use a Helm chart such as my one here @ [sonam-helm-chart](https://github.com/sonamsamdupkhangsar/sonam-helm-chart):
+Use my Helm chart here @ [sonam-helm-chart](https://github.com/sonamsamdupkhangsar/sonam-helm-chart):
 
 ```
 helm install project-api sonam/mychart -f values.yaml --version 0.1.12 --namespace=yournamespace
