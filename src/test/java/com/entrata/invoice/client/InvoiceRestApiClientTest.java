@@ -51,21 +51,31 @@ public class InvoiceRestApiClientTest {
 
     private final String jsonBody = "{\"userRole\":\"user\",\"groupNames\":[\"admin1touser\",\"employee\"]}";
 
+
     PactDslJsonBody invoiceDetail = new PactDslJsonBody()
             .stringType("description", "LazyBoy")
             .integerType("quantity", 50000)
             .decimalType("unitPrice", 4.05)
             .integerType("amount", 5);
 
+
     private PactDslJsonBody pactDslJsonBody = new PactDslJsonBody()
                 .stringType("purchaseOrderId", "f525b069-5e0e-482f-af73-0a6f5f8b5187")
                 .decimalType("subtotal", 100.03)
                 .decimalType("grandTotal", 500.23)
-                .object("invoiceDetails", invoiceDetail);
+                //.object("invoiceDetails", invoiceDetail)
+            .eachLike("invoiceDetails", invoiceDetail);
+            /*    .eachLike("invoiceDetails")
+                .stringType("description", "LazyBoy")
+                .integerType("quantity", 50000)
+                .decimalType("unitPrice", 4.05)
+                .integerType("amount", 5).closeArray();
+*/
 
     @Pact(provider="invoice-rest-service", consumer="HDSupplyVendor")
     public RequestResponsePact createPact(PactDslWithProvider builder) throws Exception {
         LOG.info("create a consumer pact between HD supply client and Invoice rest api");
+
 
         UUID id = UUID.randomUUID();
 
@@ -87,7 +97,7 @@ public class InvoiceRestApiClientTest {
                 .willRespondWith()
                 .matchHeader("Content-Type", "application/json")
                 .status(201)
-                .body(jsonResponse)
+                .body(new PactDslJsonBody().stringType("invoiceId", UUID.randomUUID().toString()))
                 .toPact();
     }
 

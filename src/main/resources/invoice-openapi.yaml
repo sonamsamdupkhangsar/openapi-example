@@ -1,0 +1,114 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Invoice API
+  description: This is the Invoice API for accepting invoices for Purchase Orders
+
+servers:
+  - url: http://localhost:8081
+    description: Invoice Rest API endpoint
+
+paths:
+  /invoices:
+    post:
+      description: This endpoint method is for creating a new invoice.  The invoice should contain a PurchaseOrdeId that matches to existing PO# in the Entrata system.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Invoice'
+            example:
+              purchaseOrderId: f525b069-5e0e-482f-af73-0a6f5f8b5187
+              subtotal: 100.03
+              grandTotal: 500.23
+              invoiceDetails:
+                - description: "Lzybody"
+                  quantity: 50000
+                  unitPrice: 4
+                  amount: 5
+
+      responses:
+        '201':
+          description: Invoice was created sucessfully in the Entrata system.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  invoiceId:
+                    type: string
+                    format: uuid
+        '400':
+          description: Failed to create invoice in the Entrata system.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /invoices/{id}:
+    get:
+      description: This endpoint method is for retrieving a Invoice by id path parameter.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successfully retrieved a invoice with the id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+        '404':
+          description: Failed to find the invoice with the id.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Invoice:
+      type: object
+      properties:
+        purchaseOrderId:
+          type: string
+          format: uuid
+        subtotal:
+          type: number
+          format: currency
+        tax:
+          type: number
+          format: currency
+        grandTotal:
+          type: number
+          format: currecy
+        invoiceDetails:
+          type: array
+          items:
+            type: object
+            properties:
+              description:
+                type: string
+              quantity:
+                type: integer
+              unitPrice:
+                type: integer
+                format: currency
+              amount:
+                type: number
+                format: currency

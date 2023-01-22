@@ -6,6 +6,7 @@ import com.entrata.invoice.repo.entity.Invoice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -13,6 +14,9 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -55,10 +59,10 @@ public class InvoiceHandler implements InvoiceBehavior {
                 })
 
                 .flatMap(invoice ->  ServerResponse.created(URI.create("/invoices/")).contentType(MediaType.APPLICATION_JSON)
-                        .bodyValue(invoice.getId()))
+                        .bodyValue(getMap(Pair.of("invoiceId", invoice.getId().toString())))
                 .onErrorResume(throwable -> Mono.just("Error: " + throwable.getMessage())
                         .flatMap(s -> ServerResponse.badRequest().contentType(MediaType.APPLICATION_JSON)
-                                .bodyValue(s)));
+                                .bodyValue(getMap(Pair.of("error", "failed to post invoice"))))));
     }
 
     @Override
@@ -75,5 +79,14 @@ public class InvoiceHandler implements InvoiceBehavior {
                 .flatMap(invoice -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(invoice))
                 .onErrorResume(throwable -> ServerResponse.badRequest().contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(throwable.getMessage()));
+    }
+
+    private Map<String, String> getMap(Pair...pairs) {
+        Map<String, String> map = new HashMap<>();
+
+        for(Pair<String, String> pair: pairs) {
+            map.put(pair.getFirst(), pair.getSecond());
+        }
+        return map;
     }
 }

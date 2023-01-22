@@ -81,26 +81,6 @@
             <artifactId>junit5</artifactId>
             <version>4.2.21</version>
         </dependency>
-
-       <!--<dependency>
-            <groupId>au.com.dius</groupId>
-            <artifactId>pact-jvm-consumer-junit5</artifactId>
-            <version>4.0.10</version>
-            <scope>test</scope>
-        </dependency>-->
-        <!-- https://mvnrepository.com/artifact/au.com.dius.pact.consumer/junit5 -->
-        <!--<dependency>
-            <groupId>au.com.dius.pact.consumer</groupId>
-            <artifactId>junit5</artifactId>
-            <version>4.4.4</version>
-        </dependency>-->
-<!--
-           <dependency>
-               <groupId>au.com.dius</groupId>
-               <artifactId>pact-jvm-provider-junit5</artifactId>
-               <version>4.0.10</version>
-               <scope>test</scope>
-           </dependency>-->
      <dependency>
             <groupId>au.com.dius.pact.provider</groupId>
             <artifactId>junit5spring</artifactId>
@@ -137,6 +117,14 @@
                     <configuration>
                         <pact.verifier.publishResults>true</pact.verifier.publishResults>
                     </configuration>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
                 </configuration>
             </plugin>
         </plugins>
