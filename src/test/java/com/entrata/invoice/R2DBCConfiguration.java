@@ -1,4 +1,4 @@
-package me.sonam.account;
+package com.entrata.invoice;
 
 import io.r2dbc.h2.H2ConnectionConfiguration;
 import io.r2dbc.h2.H2ConnectionFactory;

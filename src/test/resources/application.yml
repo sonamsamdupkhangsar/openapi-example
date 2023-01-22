@@ -1,11 +1,11 @@
 logging:
   level:
     root: error
-    me:
-      sonam: debug
+    com:
+      entrata: debug
 info:
   app:
-    name: Springboot me.sonam.account.Application
+    name: Springboot Application
     description: This is a Springboot application
     version: 1.0.0
 
@@ -15,7 +15,6 @@ management:
       show-details: always
 
 server:
-  #  port: 8080
   port: 9001
 
 spring:

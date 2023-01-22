@@ -1,4 +1,4 @@
-package me.sonam.account;
+package com.entrata.invoice;
 
 import io.r2dbc.spi.ConnectionFactory;
 import org.slf4j.Logger;
@@ -9,6 +9,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.r2dbc.connection.init.ConnectionFactoryInitializer;
 import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 @SpringBootApplication
 public class Application {
@@ -29,5 +32,22 @@ public class Application {
         return initializer;
     }
 
+    @Bean
+    CorsWebFilter corsWebFilter() {
+        LOG.info("allow cors filter");
+        CorsConfiguration corsConfig = new CorsConfiguration();
+        corsConfig.setMaxAge(8000L);
+        corsConfig.addAllowedOrigin("*");
+        corsConfig.addAllowedMethod("GET");
+        corsConfig.addAllowedMethod("POST");
+        corsConfig.addAllowedHeader("Content-Type");
+        corsConfig.addAllowedHeader("api_key");
+        corsConfig.addAllowedHeader("Authorization");
 
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfig);
+
+        return new CorsWebFilter(source);
+    }
 }

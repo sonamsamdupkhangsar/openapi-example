@@ -1,4 +1,4 @@
-package me.sonam.account;
+package com.entrata.invoice;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

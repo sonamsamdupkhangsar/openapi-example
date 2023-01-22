@@ -1,8 +1,8 @@
 logging:
   level:
     root: error
-    me:
-      sonam: debug
+    com:
+      entrata: debug
 info:
   app:
     name: Springboot me.sonam.account.Application
@@ -23,4 +23,4 @@ spring:
     username: ${POSTGRES_USERNAME}
     password: ${POSTGRES_PASSWORD}
     properties:
-      sslMode: REQUIRE
+      sslMode: ${DB_SSLMODE}

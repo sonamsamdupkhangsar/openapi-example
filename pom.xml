@@ -11,9 +11,9 @@
     </parent>
 
     <groupId>me.sonam</groupId>
-    <artifactId>spring-flux-r2dbc-pgsql-template</artifactId>
+    <artifactId>openapi-test</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>spring-flux-r2dbc-pgsql-template</name>
+    <name>openapi-test</name>
     <description>A template
     </description>
 
@@ -75,6 +75,31 @@
             <artifactId>springdoc-openapi-webflux-ui</artifactId>
             <version>1.4.3</version>
         </dependency>
+       <dependency>
+            <groupId>au.com.dius</groupId>
+            <artifactId>pact-jvm-consumer-junit5</artifactId>
+            <version>4.0.10</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/au.com.dius.pact.consumer/junit5 -->
+        <!--<dependency>
+            <groupId>au.com.dius.pact.consumer</groupId>
+            <artifactId>junit5</artifactId>
+            <version>4.4.4</version>
+        </dependency>-->
+
+          <!-- <dependency>
+               <groupId>au.com.dius</groupId>
+               <artifactId>pact-jvm-provider-junit5</artifactId>
+               <version>4.2.20</version>
+               <scope>test</scope>
+           </dependency>-->
+        <dependency>
+            <groupId>au.com.dius.pact.provider</groupId>
+            <artifactId>junit5spring</artifactId>
+            <version>4.4.4</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -83,14 +108,30 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>au.com.dius</groupId>
+                <artifactId>pact-jvm-provider-maven</artifactId>
+                <version>4.0.0</version>
+                <configuration>
+                    <pactDirectory>target/pacts</pactDirectory>
+                    <pactBrokerUrl>${pactbrokerurl}</pactBrokerUrl>
+                    <pactBrokerUsername>${pactbrokerusername}</pactBrokerUsername>
+                    <pactBrokerPassword>${pactbrokerpassword}</pactBrokerPassword>
+                    <projectVersion>v1</projectVersion>
+                    <serviceProviders>
+                        <serviceProvider>
+                            <name>jwt-rest-service</name>
+                            <pactBrokerUrl>${pactbrokerurl}</pactBrokerUrl>
+                        </serviceProvider>
+                    </serviceProviders>
+                    <tags>
+                        <tag>prod</tag>
+                    </tags>
+                    <configuration>
+                        <pact.verifier.publishResults>true</pact.verifier.publishResults>
+                    </configuration>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub OWNER Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/sonamsamdupkhangsar/spring-flux-r2dbc-pgsql-template</url>
-        </repository>
-    </distributionManagement>
 </project>
