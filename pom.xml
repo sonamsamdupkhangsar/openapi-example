@@ -103,7 +103,7 @@
            </dependency>-->
      <dependency>
             <groupId>au.com.dius.pact.provider</groupId>
-            <artifactId>junit5</artifactId>
+            <artifactId>junit5spring</artifactId>
             <version>4.2.21</version>
             <scope>test</scope>
         </dependency>
