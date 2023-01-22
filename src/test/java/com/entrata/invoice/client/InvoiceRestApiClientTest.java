@@ -10,10 +10,12 @@ import au.com.dius.pact.core.model.RequestResponsePact;
 import au.com.dius.pact.core.model.annotations.Pact;
 import org.apache.commons.io.IOUtils;
 
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.entity.StringEntity;
+
 
 //import org.apache.hc.core5.http.HttpEntity;
 //import org.apache.hc.core5.http.io.entity.StringEntity;
@@ -68,7 +70,7 @@ public class InvoiceRestApiClientTest {
         UUID id = UUID.randomUUID();
 
         final String jsonResponse = "{ " +
-                "\"invoiceId\": " +  id +
+                "\"invoiceId\": \"" +  id + "\"" +
                 "}";
 
         Map<String, String> headers = new HashMap<>();

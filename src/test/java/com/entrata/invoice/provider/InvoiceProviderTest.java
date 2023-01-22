@@ -4,15 +4,19 @@ import au.com.dius.pact.provider.PactVerification;
 import au.com.dius.pact.provider.junit.Provider;
 import au.com.dius.pact.provider.junit.loader.PactBroker;
 import au.com.dius.pact.provider.junit.Provider;
-import au.com.dius.pact.provider.junit.loader.PactBroker;*/
+import au.com.dius.pact.provider.junit.loader.PactBroker;
+import au.com.dius.pact.provider.junit.Provider;
+import au.com.dius.pact.provider.junit.loader.PactBroker;
 import au.com.dius.pact.provider.junit5.PactVerificationContext;
-import au.com.dius.pact.provider.junit5.TestTarget;
+import au.com.dius.pact.provider.junit5.TestTarget;*/
 
+/*
 import au.com.dius.pact.provider.junitsupport.Provider;
 import au.com.dius.pact.provider.junitsupport.loader.PactBroker;
 import au.com.dius.pact.provider.spring.junit5.PactVerificationSpringProvider;
 import au.com.dius.pact.provider.spring.junit5.WebFluxTarget;
 
+import au.com.dius.pact.provider.junit5.PactVerificationContext;
 import com.entrata.invoice.InvoiceHandler;
 import com.entrata.invoice.Router;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,11 +28,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+*/
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Provider("invoice-rest-service")
-@PactBroker(host="https://pactbroker.sonam.cloud")
+@PactBroker(host = "pactbroker.sonam.cloud", scheme = "https")
 public class InvoiceProviderTest {
     private static final Logger LOG = LoggerFactory.getLogger(InvoiceProviderTest.class);
 
