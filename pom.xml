@@ -14,8 +14,11 @@
     <artifactId>openapi-test</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>openapi-test</name>
-    <description>A template
-    </description>
+    <description>A template</description>
+
+    <properties>
+        <java.version>17</java.version>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -84,9 +87,12 @@
      <dependency>
             <groupId>au.com.dius.pact.provider</groupId>
             <artifactId>junit5spring</artifactId>
-            <version>4.2.21</version>
+            <!--<version>4.2.21</version>-->
+         <!--<version>4.4.4</version>-->
+         <version>4.4.4</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -107,7 +113,7 @@
                     <projectVersion>v1</projectVersion>
                     <serviceProviders>
                         <serviceProvider>
-                            <name>jwt-rest-service</name>
+                            <name>invoice-rest-service</name>
                             <pactBrokerUrl>${pactbrokerurl}</pactBrokerUrl>
                         </serviceProvider>
                     </serviceProviders>

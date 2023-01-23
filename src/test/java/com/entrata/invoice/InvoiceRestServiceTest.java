@@ -17,6 +17,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -40,16 +41,16 @@ public class InvoiceRestServiceTest {
         InvoiceDetail invoiceDetail = new InvoiceDetail(null, null, "LazyBoy", 5008, new BigDecimal(.99), new BigDecimal(400));
         Invoice invoice = new Invoice(null, UUID.randomUUID(), new BigDecimal(400.56), new BigDecimal(12.00), new BigDecimal(4), Arrays.asList(invoiceDetail));
 
-        EntityExchangeResult<String> entityExchangeResult = client.post().uri("/invoices").bodyValue(invoice).accept(MediaType.APPLICATION_JSON)
-                .exchange().expectStatus().isCreated().expectBody(String.class).returnResult();
+        EntityExchangeResult<Map> entityExchangeResult = client.post().uri("/invoices").bodyValue(invoice).accept(MediaType.APPLICATION_JSON)
+                .exchange().expectStatus().isCreated().expectBody(Map.class).returnResult();
 
         LOG.info("got result: {}", entityExchangeResult.getResponseBody());
 
-        UUID invoiceId = UUID.randomUUID();//fromString(entityExchangeResult.getResponseBody());
+        UUID invoiceId = UUID.fromString(entityExchangeResult.getResponseBody().get("invoiceId").toString());
 
-        EntityExchangeResult<Invoice> invoiceResult = client.get()
+        EntityExchangeResult<Map> invoiceResult = client.get()
                 .uri("/invoices/"+invoiceId).accept(MediaType.APPLICATION_JSON)
-                .exchange().expectStatus().isOk().expectBody(Invoice.class).returnResult();
+                .exchange().expectStatus().isOk().expectBody(Map.class).returnResult();
 
         LOG.info("found invoice: {}", invoiceResult.getResponseBody());
     }
